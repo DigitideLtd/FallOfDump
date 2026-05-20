@@ -1,0 +1,22 @@
+{
+  "name": "fall-of-dump",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Fall Of Dump — browser games by a tiny AI-native studio.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host",
+    "typecheck": "tsc -b --noEmit",
+    "deploy": "npm run build && gh-pages -d dist -t true"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21"
+  },
+  "dependencies": {
+    "phaser": "^3.86.0"
+  }
+}
