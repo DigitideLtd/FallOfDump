@@ -57,7 +57,7 @@ For a custom domain or user/org page, `VITE_BASE=/` (the default) is correct.
 ├── src/
 │   ├── main.ts                 # Phaser.Game bootstrap
 │   └── scenes/                 # one file per Phaser scene
-│       └── HelloScene.ts
+│       └── PlayScene.ts
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
@@ -69,6 +69,29 @@ For a custom domain or user/org page, `VITE_BASE=/` (the default) is correct.
 - **Imported assets** (anything you want hashed/optimized by Vite): `src/assets/` — referenced via `import url from './assets/foo.png'`.
 
 Neither directory is required to exist; create whichever fits the asset.
+
+## M2 — controls + how the render loop is structured
+
+The deployed page is a fixed 480×270 canvas (`src/main.ts`) using Phaser's
+`Scale.FIT` mode, so it scales up to fill the browser window while keeping
+the internal coordinate system the same. `pixelArt: true` keeps the upscale
+crisp.
+
+Controls (`src/scenes/PlayScene.ts`):
+
+- **WASD** or **arrow keys** — move the yellow square.
+- Movement is clamped to the canvas bounds.
+- Diagonals are normalized so they're not faster than orthogonal movement.
+- No persistence — refresh puts the player back at center.
+
+The render loop is Phaser's standard `requestAnimationFrame`-driven loop:
+
+- `create()` runs once and sets up the player rectangle + key bindings.
+- `update(time, delta)` runs every frame. We use `delta` (ms since last
+  frame) to make movement frame-rate-independent: position += direction ×
+  speed × (delta / 1000).
+
+Mobile/touch input is out of scope for M2 — future work.
 
 ## Roadmap notes
 

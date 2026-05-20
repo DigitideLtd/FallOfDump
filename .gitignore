@@ -8,3 +8,4 @@ dist
 .cache
 .npm-cache/
 .env.development.local
+tsconfig.tsbuildinfo
